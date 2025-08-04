@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>付费进群系统 - 轻松创建各类付费社群</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#10b981',
+            accent: '#f59e0b',
+            dark: '#1e293b',
+            light: '#f8fafc'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
+  
+  <style>
+    /* 全局动画定义 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* 平滑滚动 */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800">
+  <!-- 导航栏 -->
+  <header class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-comments text-primary text-2xl"></i>
+        <span class="text-xl font-bold text-dark">蓝猫</span>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-gray-600 hover:text-primary transition-colors">功能特点</a>
+        <a href="#use-cases" class="text-gray-600 hover:text-primary transition-colors">适用场景</a>
+        <a href="#advantages" class="text-gray-600 hover:text-primary transition-colors">核心优势</a>
+        <a href="#payment" class="text-gray-600 hover:text-primary transition-colors">支付方式</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-gray-600 focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <a href="#features" class="text-gray-600 hover:text-primary py-2 transition-colors">功能特点</a>
+        <a href="#use-cases" class="text-gray-600 hover:text-primary py-2 transition-colors">适用场景</a>
+        <a href="#advantages" class="text-gray-600 hover:text-primary py-2 transition-colors">核心优势</a>
+        <a href="#payment" class="text-gray-600 hover:text-primary py-2 transition-colors">支付方式</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="pt-28 pb-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in" style="animation-delay: 0.1s">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-dark mb-6">
+            轻松创建<br><span class="text-primary">付费社群</span>，实现流量变现
+          </h1>
+          <p class="text-lg text-gray-600 mb-8 max-w-lg">
+            仅需九块九，即可加入各类优质社群，拓展人脉资源。同时支持一键创建专属付费群，无需复杂配置，快速实现知识变现。
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#features" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all text-center">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+            <a href="#advantages" class="bg-white hover:bg-gray-50 text-primary border border-primary font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all text-center">
+              核心优势
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 animate-fade-in" style="animation-delay: 0.3s">
+          <div class="relative">
+            <div class="absolute -top-4 -left-4 w-full h-full bg-accent/20 rounded-2xl transform rotate-3"></div>
+            <div class="absolute -bottom-4 -right-4 w-full h-full bg-primary/20 rounded-2xl transform -rotate-3"></div>
+            <img src="https://picsum.photos/600/400" alt="付费进群系统展示" class="relative z-10 rounded-2xl shadow-xl w-full object-cover h-[300px] md:h-[400px]">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 价格亮点 -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg p-6 md:p-10 text-center">
+        <div class="inline-block bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
+          <span class="text-white font-medium">超值价格</span>
+        </div>
+        <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-white mb-4">活动<span class="text-accent text-4xl md:text-5xl">超特惠</span>即可搭建优质社群</h2>
+        <p class="text-white/90 max-w-2xl mx-auto text-lg">
+		可联系上级经销商进行购买
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能特点 -->
+  <section id="features" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">强大功能，简单操作</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          我们的系统设计简洁直观，无需专业技术，任何人都能快速上手
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- 功能卡片1 -->
+        <div class="feature-card bg-white rounded-xl shadow-md p-6">
+          <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fa fa-users text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">多元社群</h3>
+          <p class="text-gray-600">
+            支持创建各类付费群，涵盖表情包、吃瓜、创业、资源对接等多种类型
+          </p>
+        </div>
+        
+        <!-- 功能卡片2 -->
+        <div class="feature-card bg-white rounded-xl shadow-md p-6">
+          <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fa fa-credit-card text-secondary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">灵活支付</h3>
+          <p class="text-gray-600">
+            对接第三方易支付平台，支持多种支付方式，收款便捷安全
+          </p>
+        </div>
+        
+        <!-- 功能卡片3 -->
+        <div class="feature-card bg-white rounded-xl shadow-md p-6">
+          <div class="w-14 h-14 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fa fa-qrcode text-accent text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">一键管理</h3>
+          <p class="text-gray-600">
+            进群码直接在后台上传，简单操作即可完成设置，轻松管理多个社群
+          </p>
+        </div>
+        
+        <!-- 功能卡片4 -->
+        <div class="feature-card bg-white rounded-xl shadow-md p-6">
+          <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fa fa-line-chart text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">数据统计</h3>
+          <p class="text-gray-600">
+            实时查看社群加入数据，掌握运营效果，优化营销策略
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 适用场景 -->
+  <section id="use-cases" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">丰富的适用场景</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          无论您是想拓展人脉、分享资源，还是创建兴趣社群，我们都能满足您的需求
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 场景1 -->
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 shadow-sm">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-heart text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">社交人脉</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+              <span>宝妈交流群，分享育儿经验</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+              <span>同城交友群，认识周边朋友</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+              <span>相亲联谊群，拓展婚恋圈子</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- 场景2 -->
+        <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-8 shadow-sm">
+          <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-lightbulb-o text-secondary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">资源共享</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+              <span>表情包取图群，获取各类素材</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+              <span>创业交流群，对接商业资源</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+              <span>行业信息群，分享最新动态</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- 场景3 -->
+        <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-8 shadow-sm">
+          <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-comments text-accent text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">兴趣社群</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+              <span>吃瓜闲聊群，分享热点话题</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+              <span>爱好交流群，结识同好伙伴</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+              <span>学习成长群，共同进步提升</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 支付方式 -->
+  <section id="payment" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2">
+          <div class="relative">
+            <div class="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
+            <img src="https://picsum.photos/600/450" alt="支付流程展示" class="relative z-10 rounded-3xl shadow-lg w-full">
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-6">便捷安全的支付体验</h2>
+          <p class="text-gray-600 text-lg mb-8">
+            我们对接了多家第三方易支付平台，为您提供安全、稳定、便捷的支付解决方案，无需复杂的配置流程。
+          </p>
+          
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="mt-1 bg-primary/10 p-2 rounded-lg mr-4">
+                <i class="fa fa-plug text-primary"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">多平台对接</h3>
+                <p class="text-gray-600">支持市面上主流的易支付平台，您可以自由选择适合自己的支付渠道</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="mt-1 bg-primary/10 p-2 rounded-lg mr-4">
+                <i class="fa fa-upload text-primary"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">简单配置</h3>
+                <p class="text-gray-600">进群码直接在后台上传，几步操作即可完成整个支付流程的设置</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="mt-1 bg-primary/10 p-2 rounded-lg mr-4">
+                <i class="fa fa-shield text-primary"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">安全可靠</h3>
+                <p class="text-gray-600">所有支付流程经过加密处理，保障您的资金安全和用户信息安全</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心优势 -->
+  <section id="advantages" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">为什么选择我们</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+          我们的系统为您提供全方位的优势，让社群运营变得简单高效
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- 优势1 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-ban text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">无需公众号</h3>
+            <p class="text-gray-600">不需要绑定公众号即可使用，省去复杂的认证流程</p>
+          </div>
+        </div>
+        
+        <!-- 优势2 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-credit-card-alt text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">无需商户号</h3>
+            <p class="text-gray-600">不需要申请支付商户号，降低使用门槛，快速上手</p>
+          </div>
+        </div>
+        
+        <!-- 优势3 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-globe text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">域名无需备案</h3>
+            <p class="text-gray-600">支持未备案域名使用，减少前期准备工作和时间成本</p>
+          </div>
+        </div>
+        
+        <!-- 优势4 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-server text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">完全独立搭建</h3>
+            <p class="text-gray-600">系统独立部署，数据完全掌控在自己手中，安全有保障</p>
+          </div>
+        </div>
+        
+        <!-- 优势5 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-percent text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">无抽佣扣点</h3>
+            <p class="text-gray-600">所有收入归您所有，我们不收取任何佣金和手续费</p>
+          </div>
+        </div>
+        
+        <!-- 优势6 -->
+        <div class="flex p-6 bg-gray-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-6">
+            <i class="fa fa-sliders text-primary"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">灵活配置</h3>
+            <p class="text-gray-600">可根据需求自定义群名称、价格、简介等信息，灵活调整</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 行动召唤 -->
+  <section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-6">
+        开启您的付费社群之旅
+      </h2>
+      <p class="text-white/90 max-w-2xl mx-auto text-lg mb-10">
+        低门槛、高灵活、零抽成，让每一份付出都能获得应有的回报
+      </p>
+      <a href="#features" class="inline-block bg-white text-primary hover:bg-gray-100 font-medium py-3 px-10 rounded-lg shadow-lg hover:shadow-xl transition-all text-lg">
+        立即了解 <i class="fa fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-comments text-primary text-2xl"></i>
+            <span class="text-xl font-bold">蓝猫</span>
+          </div>
+          <p class="text-gray-400 max-w-md">
+            专业的付费社群解决方案，让社群运营更简单，变现更轻松
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">产品</h3>
+            <ul class="space-y-2">
+              <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">功能特点</a></li>
+              <li><a href="#use-cases" class="text-gray-400 hover:text-white transition-colors">适用场景</a></li>
+              <li><a href="#payment" class="text-gray-400 hover:text-white transition-colors">支付方式</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">资源</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">帮助中心</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">商务合作</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500">© 2023 蓝猫付费社群系统. 保留所有权利.</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-weixin text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-weibo text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-qq text-xl"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 移动端菜单切换
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // 切换图标
+      const icon = menuBtn.querySelector('i');
+      if (icon.classList.contains('fa-bars')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+      } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+      }
+    });
+    
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('py-2');
+        header.classList.remove('py-4');
+        header.classList.add('shadow-md');
+      } else {
+        header.classList.add('py-4');
+        header.classList.remove('py-2');
+        header.classList.remove('shadow-md');
+      }
+    });
+    
+    // 点击导航链接关闭移动端菜单
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.replace('fa-times', 'fa-bars');
+      });
+    });
+    
+    // 页面加载动画
+    document.addEventListener('DOMContentLoaded', () => {
+      // 为各个部分添加延迟动画
+      const sections = document.querySelectorAll('section');
+      sections.forEach((section, index) => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+        }, 100 + (index * 100));
+      });
+    });
+  </script>
+</body>
+</html>
